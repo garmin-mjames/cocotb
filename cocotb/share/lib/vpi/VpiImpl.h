@@ -176,6 +176,7 @@ public:
     int set_signal_value(const double value, gpi_set_action_t action) override;
     int set_signal_value_binstr(std::string &value, gpi_set_action_t action) override;
     int set_signal_value_str(std::string &value, gpi_set_action_t action) override;
+    int set_signal_value(gpi_time_t value, gpi_set_action_t action) override;
 
     /* Value change callback accessor */
     GpiCbHdl *value_change_cb(int edge) override;

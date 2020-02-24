@@ -181,17 +181,20 @@ public:
                                       m_falling_cb(impl, this, GPI_FALLING),
                                       m_either_cb(impl, this, GPI_FALLING | GPI_RISING) { }
     ~VhpiSignalObjHdl() override;
+    virtual ~VhpiSignalObjHdl();
 
     const char* get_signal_value_binstr() override;
     const char* get_signal_value_str() override;
     double get_signal_value_real() override;
     long get_signal_value_long() override;
+    gpi_time_t get_signal_value_time() override;
 
     using GpiSignalObjHdl::set_signal_value;
     int set_signal_value(long value, gpi_set_action_t action) override;
     int set_signal_value(double value, gpi_set_action_t action) override;
     int set_signal_value_str(std::string &value, gpi_set_action_t action) override;
     int set_signal_value_binstr(std::string &value, gpi_set_action_t action) override;
+    int set_signal_value(gpi_time_t value, gpi_set_action_t action) override;
 
     /* Value change callback accessor */
     GpiCbHdl *value_change_cb(int edge) override;

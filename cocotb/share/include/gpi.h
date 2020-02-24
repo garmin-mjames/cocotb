@@ -111,6 +111,12 @@ typedef enum gpi_event_e {
     SIM_FAIL = 2,
 } gpi_event_t;
 
+typedef struct gpi_time_s
+{
+    uint32_t    low;
+    uint32_t    high;
+} gpi_time_t;
+
 // Functions for controlling/querying the simulation state
 
 /**
@@ -169,6 +175,7 @@ typedef enum gpi_objtype_e {
     GPI_INTEGER = 10,
     GPI_STRING = 11,
     GPI_GENARRAY = 12,
+    GPI_TIME = 13,
 } gpi_objtype_t;
 
 // When iterating, we can chose to either get child objects, drivers or loads

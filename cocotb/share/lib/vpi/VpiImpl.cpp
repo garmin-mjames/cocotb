@@ -151,6 +151,9 @@ gpi_objtype_t to_gpi_objtype(int32_t vpitype)
         case vpiStringVar:
             return GPI_STRING;
 
+        case vpiTimeVar:
+            return GPI_TIME;
+
         default:
             LOG_DEBUG("Unable to map VPI type %d onto GPI type", vpitype);
             return GPI_UNKNOWN;
@@ -184,6 +187,7 @@ GpiObjHdl* VpiImpl::create_gpi_obj_from_handle(vpiHandle new_hdl,
         case vpiStringVar:
         case vpiMemoryWord:
         case vpiInterconnectNet:
+        case vpiTimeVar:
             new_obj = new VpiSignalObjHdl(this, new_hdl, to_gpi_objtype(type), false);
             break;
         case vpiParameter:

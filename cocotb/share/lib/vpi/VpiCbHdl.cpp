@@ -328,6 +328,24 @@ long VpiSignalObjHdl::get_signal_value_long()
     return value_s.value.integer;
 }
 
+gpi_time_t VpiSignalObjHdl::get_signal_value_time()
+{
+    s_vpi_value value_s = {vpiTimeVal};
+    gpi_time_t time;
+
+    vpi_get_value(GpiObjHdl::get_handle<vpiHandle>(), &value_s);
+    check_vpi_error();
+
+    if (value_s.value.time->type != vpiSimTime) {
+        LOG_ERROR("time variable value is of type %d, expected type %d", value_s.value.time->type, vpiSimTime);
+    }
+
+    time.low = value_s.value.time->low;
+    time.high = value_s.value.time->high;
+
+    return time;
+}
+
 // Value related functions
 int VpiSignalObjHdl::set_signal_value(long value, gpi_set_action_t action)
 {
@@ -371,6 +389,21 @@ int VpiSignalObjHdl::set_signal_value_str(std::string &value, gpi_set_action_t a
 
     value_s.value.str = &writable[0];
     value_s.format = vpiStringVal;
+
+    return set_signal_value(value_s, action);
+}
+
+int VpiSignalObjHdl::set_signal_value(gpi_time_t value, gpi_set_action_t action)
+{
+    s_vpi_value value_s;
+
+    s_vpi_time time_s;
+    time_s.type = vpiSimTime;
+    time_s.high = value.high;
+    time_s.low = value.low;
+
+    value_s.format = vpiTimeVal;
+    value_s.value.time = &time_s;
 
     return set_signal_value(value_s, action);
 }
