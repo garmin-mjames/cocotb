@@ -822,7 +822,7 @@ async def with_timeout(trigger, timeout_time, timeout_unit=None):
         await with_timeout(First(coro, event.wait()), 100, 'ns')
 
     Args:
-        trigger (:class:`~cocotb.triggers.Trigger` or :class:`~cocotb.triggers.Waitable` or :class:`~cocotb.decorators.RunningTask` or :class:`types.CoroutineType`):
+        trigger (:class:`~cocotb.triggers.Trigger`, :class:`~cocotb.triggers.Waitable`, :class:`~cocotb.decorators.RunningTask`, or :term:`python:coroutine`):
             A single object that could be right of an :keyword:`await` expression in cocotb.
         timeout_time (numbers.Real or decimal.Decimal):
             Simulation time duration before timeout occurs.
