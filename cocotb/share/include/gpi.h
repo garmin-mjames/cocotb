@@ -145,6 +145,14 @@ gpi_sim_hdl gpi_get_handle_by_name(gpi_sim_hdl parent, const char *name);
 gpi_sim_hdl gpi_get_handle_by_index(gpi_sim_hdl parent, int32_t index);
 void gpi_free_handle(gpi_sim_hdl gpi_hdl);
 
+/**
+ * Returns an array of handles to instantiated packages from
+ * all registered interfaces
+ *
+ * @return array of package handles
+ */
+gpi_sim_hdl* gpi_get_packages(void);
+
 // Types that can be passed to the iterator.
 //
 // Note these are strikingly similar to the VPI types...

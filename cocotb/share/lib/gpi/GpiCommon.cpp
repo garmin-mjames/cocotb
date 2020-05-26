@@ -285,6 +285,31 @@ gpi_sim_hdl gpi_get_root_handle(const char *name)
     }
 }
 
+gpi_sim_hdl* gpi_get_packages(void)
+{
+    vector<GpiImplInterface*>::iterator iter;
+
+    LOG_DEBUG("Looking for root handle '%s' over %d implementations", name, registered_impls.size());
+
+    for (iter = registered_impls.begin();
+         iter != registered_impls.end();
+         iter++) {
+        if ((hdl = (*iter)->get_packages())) {
+            LOG_DEBUG("Got a Root handle (%s) back from %s",
+                hdl->get_name_str(),
+                (*iter)->get_name_c());
+            break;
+        }
+    }
+
+    if (hdl)
+        return CHECK_AND_STORE(hdl);
+    else {
+        LOG_ERROR("No root handle found");
+        return hdl;
+    }
+}
+
 static GpiObjHdl* __gpi_get_handle_by_name(GpiObjHdl *parent,
                                            std::string name,
                                            GpiImplInterface *skip_impl)
