@@ -68,10 +68,13 @@ def total_object_count():
 async def recursive_discovery(dut):
     """Recursively discover every single object in the design."""
 
+
     pass_total = total_object_count()
 
     tlog = logging.getLogger("cocotb.test")
     await Timer(100)
+    tlog.debug("Found %s (%s)", dut.inst_ram_ctrl.write_ram_fsm._name, type(dut.inst_ram_ctrl.write_ram_fsm))
+    tlog.debug("Found %s (%s)", dut.inst_ram_ctrl.t_write_ram_fsm._name, type(dut.inst_ram_ctrl.t_write_ram_fsm))
 
     def dump_all_the_things(parent):
         count = 0

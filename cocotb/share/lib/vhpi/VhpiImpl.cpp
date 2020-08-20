@@ -353,6 +353,32 @@ GpiObjHdl *VhpiImpl::create_gpi_obj_from_handle(vhpiHandleT new_hdl,
             } else {
                 LOG_DEBUG("Detected an ENUM type %s", fq_name.c_str());
                 gpi_type   = GPI_ENUM;
+
+                const char *type_name = vhpi_get_str(vhpiNameP, query_hdl);
+
+                vhpiIntT num_enum = vhpi_get(vhpiNumLiteralsP, query_hdl);
+                std::string enum_strings;
+
+                vhpiHandleT it = vhpi_iterator(vhpiEnumLiterals, query_hdl);
+                if (it != NULL) {
+                    vhpiHandleT enum_hdl;
+
+                    while ((enum_hdl = vhpi_scan(it)) != NULL) {
+                        const char *etype = vhpi_get_str(vhpiStrValP, enum_hdl);
+                        if (!enum_strings.empty()) {
+                            enum_strings += ", ";
+                        }
+                        enum_strings += etype;
+                    }
+                }
+
+                const char *type_fcn = vhpi_get_str(vhpiFullCaseNameP, query_hdl);
+
+                LOG_DEBUG("%s is type %s (fn %s, fcn %s) with %d literals: (%s)", fq_name.c_str(), type_name, vhpi_get_str(vhpiFullNameP, query_hdl), type_fcn, num_enum, enum_strings.c_str());
+
+                vhpiHandleT type_handle_by_name = vhpi_handle_by_name(type_fcn, NULL);
+                LOG_DEBUG("handle_by_name for type %s is: %p of kind %d", type_name, type_handle_by_name, vhpi_get(vhpiKindP, type_handle_by_name));
+
             }
             break;
         }
