@@ -48,6 +48,7 @@
 EXTERN_C_START
 
 enum gpi_log_levels {
+    GPITrace = 5,
     GPIDebug = 10,
     GPIInfo = 20,
     GPIWarning = 30,
@@ -56,6 +57,7 @@ enum gpi_log_levels {
 };
 
 
+#define LOG_TRACE(...)     gpi_log("cocotb.gpi", GPITrace,         __FILE__, __func__, __LINE__, __VA_ARGS__);
 #define LOG_DEBUG(...)     gpi_log("cocotb.gpi", GPIDebug,         __FILE__, __func__, __LINE__, __VA_ARGS__);
 #define LOG_INFO(...)      gpi_log("cocotb.gpi", GPIInfo,          __FILE__, __func__, __LINE__, __VA_ARGS__);
 #define LOG_WARN(...)      gpi_log("cocotb.gpi", GPIWarning,       __FILE__, __func__, __LINE__, __VA_ARGS__);
