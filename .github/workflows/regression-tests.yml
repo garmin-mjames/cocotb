@@ -50,6 +50,7 @@ jobs:
       CXX: ${{matrix.cxx || 'g++'}}
       CC: ${{matrix.cc || 'gcc'}}
       OS: ${{matrix.os}}
+      GHA_COVERAGE: 1
 
     strategy:
       fail-fast: false
