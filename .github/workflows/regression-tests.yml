@@ -288,7 +288,7 @@ jobs:
       continue-on-error: ${{matrix.may_fail || false}}
       timeout-minutes: 15
       run: |
-        tox
+        tox -vv
 
     # codecov
     - name: Upload to codecov
