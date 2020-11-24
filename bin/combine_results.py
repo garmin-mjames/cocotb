@@ -81,6 +81,8 @@ def main():
                 if args.set_rc:
                     rc = 1
                 print("Failure in testsuite: '%s' classname: '%s' testcase: '%s' with parameters '%s'" % (testsuite.get('name'), testcase.get('classname'), testcase.get('name'), testsuite.get('package')))
+                if os.getenv('GITHUB_ACTIONS') is not None:
+                    print("::error file={}.py::Test {} failed".format(testcase.get('classname'), testsuite.get('name')))
 
     print("Ran a total of %d TestSuites and %d TestCases" % (testsuite_count, testcase_count))
 
